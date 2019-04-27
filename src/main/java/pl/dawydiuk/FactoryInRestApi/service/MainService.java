@@ -1,27 +1,29 @@
 package pl.dawydiuk.FactoryInRestApi.service;
 
 import lombok.AllArgsConstructor;
-import models.Product;
-import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
+import models.CreateProductRQ;
+import models.ProductRS;
 import org.springframework.web.client.RestTemplate;
-import pl.dawydiuk.FactoryInRestApi.wrapper.ProductsList;
 
 import java.util.List;
 
 /**
  * Created by Judith on 12.03.2019.
  */
-@Service
 @AllArgsConstructor
+@Slf4j
 public class MainService {
 
     private RestTemplate restTemplate;
 
-    private static final String CREATE_NEW_PRODUCTS_URL = "http://localhost:8083//create/";
+    private static final String PRODUCTS_URL = "http://localhost:8081/products";
 
-
-    public List<Product> createNewProducts(final int number) {
-        return restTemplate.getForObject(CREATE_NEW_PRODUCTS_URL + number, ProductsList.class).getProductsList();
+    public ProductRS createNewProducts(final List<CreateProductRQ> createProductRQ) {
+        return restTemplate.postForObject(PRODUCTS_URL,createProductRQ, ProductRS.class);
     }
 
+    public ProductRS getAllProducts() {
+        return restTemplate.getForObject(PRODUCTS_URL, ProductRS.class);
+    }
 }

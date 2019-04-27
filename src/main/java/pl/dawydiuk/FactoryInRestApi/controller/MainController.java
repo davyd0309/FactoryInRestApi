@@ -1,10 +1,12 @@
 package pl.dawydiuk.FactoryInRestApi.controller;
 
 import lombok.AllArgsConstructor;
-import models.Product;
+import models.CreateProductRQ;
+import models.ProductRS;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.dawydiuk.FactoryInRestApi.service.MainService;
 
@@ -22,11 +24,17 @@ public class MainController {
 
     private MainService mainService;
 
-    @GetMapping(value = "/product/{number}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Product>> createNewProducts(@PathVariable int number) {
-
-        return ResponseEntity.ok(mainService.createNewProducts(number));
+    @PostMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductRS> createNewProducts(@RequestBody List<CreateProductRQ> createProductRQ) {
+        return ResponseEntity.ok(mainService.createNewProducts(createProductRQ));
 
     }
+
+    @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductRS> getAllProducts() {
+        return ResponseEntity.ok(mainService.getAllProducts());
+
+    }
+
 
 }
