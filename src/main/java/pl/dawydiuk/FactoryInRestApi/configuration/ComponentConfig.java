@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import pl.dawydiuk.FactoryInRestApi.service.MainService;
 
 /**
- * Created by Judith on 06.04.2019.
+ * Created by Konrad on 06.04.2019.
  */
 
 @Configuration

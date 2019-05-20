@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 /**
- * Created by Judith on 12.03.2019.
+ * Created by Konrad on 12.03.2019.
  */
 @AllArgsConstructor
 @Slf4j

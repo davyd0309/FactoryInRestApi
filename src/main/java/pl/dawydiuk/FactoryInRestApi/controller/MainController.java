@@ -15,7 +15,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
- * Created by Judith on 12.03.2019.
+ * Created by Konrad on 12.03.2019.
  */
 
 @RestController
