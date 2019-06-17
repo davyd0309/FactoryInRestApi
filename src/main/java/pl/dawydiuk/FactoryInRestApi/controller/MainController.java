@@ -1,6 +1,5 @@
 package pl.dawydiuk.FactoryInRestApi.controller;
 
-import lombok.AllArgsConstructor;
 import models.CreateProductRQ;
 import models.ProductRS;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +18,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  */
 
 @RestController
-@AllArgsConstructor
 public class MainController {
 
     private MainService mainService;
 
-    @PostMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value   = "/products", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductRS> createNewProducts(@RequestBody List<CreateProductRQ> createProductRQ) {
         return ResponseEntity.ok(mainService.createNewProducts(createProductRQ));
 
@@ -34,6 +32,11 @@ public class MainController {
     public ResponseEntity<ProductRS> getAllProducts() {
         return ResponseEntity.ok(mainService.getAllProducts());
 
+    }
+
+    @GetMapping(value = "/test")
+    public String mainTest(){
+        return "TEST OK";
     }
 
 
