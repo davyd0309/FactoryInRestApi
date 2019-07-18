@@ -11,7 +11,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/test").hasRole("USER")
+                .antMatchers("/products").hasAnyRole("USER","ADMIN")
                 .and()
                 .addFilter(new JwtFilter(authenticationManager()));
     }

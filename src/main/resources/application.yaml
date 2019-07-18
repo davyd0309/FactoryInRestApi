@@ -1,2 +1,9 @@
 server:
   port: 8083
+
+foundry:
+  service:
+    name: localhost:8081
+    endpoint:
+      create: /create
+      all: /all
