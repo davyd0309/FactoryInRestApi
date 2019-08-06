@@ -3,9 +3,11 @@ package pl.dawydiuk.FactoryInRestApi.config;
 import models.ProductRQ;
 import models.ProductRS;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import pl.dawydiuk.FactoryInRestApi.controller.MainController;
 import pl.dawydiuk.FactoryInRestApi.service.FoundryWrapperClient;
 import pl.dawydiuk.FactoryInRestApi.service.FoundryWrapperClientAdapter;
 import pl.dawydiuk.FactoryInRestApi.service.rest.FoundryAllProductsRestService;
@@ -40,5 +42,10 @@ public class ComponentConfig {
                                                             BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryAllProductsRestService) {
         return new FoundryWrapperClientAdapter(foundryCreateProductRestService, foundryAllProductsRestService);
     }
+
+//    @Bean
+//    public MainController mainController(FoundryWrapperClient foundryWrapperClientAdapter) {
+//        return new MainController(foundryWrapperClientAdapter);
+//    }
 
 }

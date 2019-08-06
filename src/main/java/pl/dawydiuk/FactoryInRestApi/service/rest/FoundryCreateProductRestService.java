@@ -6,6 +6,7 @@ import models.ProductRQ;
 import models.ProductRS;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -16,7 +17,6 @@ import java.util.function.BiFunction;
 /**
  * Created by Konrad on 12.03.2019.
  */
-@RequiredArgsConstructor
 @Slf4j
 public class FoundryCreateProductRestService implements BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> {
 
@@ -27,6 +27,10 @@ public class FoundryCreateProductRestService implements BiFunction<ProductRQ, St
     private String foundryEndpoint;
 
     private final RestTemplate restTemplate;
+
+    public FoundryCreateProductRestService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     public ResponseEntity<ProductRS> apply(ProductRQ productRQ, String token) {
