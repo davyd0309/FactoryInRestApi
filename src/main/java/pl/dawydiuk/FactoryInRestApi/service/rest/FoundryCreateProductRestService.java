@@ -1,16 +1,14 @@
 package pl.dawydiuk.FactoryInRestApi.service.rest;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import models.ProductRQ;
 import models.ProductRS;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.function.BiFunction;
 
@@ -46,9 +44,11 @@ public class FoundryCreateProductRestService implements BiFunction<ProductRQ, St
     }
 
     private URI buildUrl() {
-        return UriComponentsBuilder.newInstance()
-                .scheme("http")
-                .host(serviceName)
-                .path(foundryEndpoint).build().toUri();
+        try {
+            return new URI("http://"+serviceName+foundryEndpoint); //TODO zmiana
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
