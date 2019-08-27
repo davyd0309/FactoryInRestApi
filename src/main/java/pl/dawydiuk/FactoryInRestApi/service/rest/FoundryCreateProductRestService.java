@@ -31,9 +31,9 @@ public class FoundryCreateProductRestService implements BiFunction<ProductRQ, St
     }
 
     @Override
-    public ResponseEntity<ProductRS> apply(ProductRQ productRQ, String token) {
+    public ResponseEntity<ProductRS> apply(ProductRQ productRQ, String token){
         HttpEntity<ProductRQ> entity = new HttpEntity<>(productRQ, buildHeaders(token));
-        return restTemplate.exchange(buildUrl(), HttpMethod.POST, entity, ProductRS.class);
+            return restTemplate.exchange(buildUrl(), HttpMethod.POST, entity, ProductRS.class);
     }
 
     private HttpHeaders buildHeaders(String token) {
@@ -45,7 +45,7 @@ public class FoundryCreateProductRestService implements BiFunction<ProductRQ, St
 
     private URI buildUrl() {
         try {
-            return new URI("http://"+serviceName+foundryEndpoint); //TODO zmiana
+            return new URI("http://" + serviceName + foundryEndpoint); //TODO zmiana
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

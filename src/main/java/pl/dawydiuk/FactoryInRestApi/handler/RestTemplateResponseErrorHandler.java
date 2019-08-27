@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static org.springframework.http.HttpStatus.Series.CLIENT_ERROR;
 import static org.springframework.http.HttpStatus.Series.SERVER_ERROR;
-import static pl.dawydiuk.FactoryInRestApi.exception.FactoryInRestApiExceptionFactory.serviceNotAvailableException;
+import static pl.dawydiuk.FactoryInRestApi.exception.FactoryInRestApiExceptionFactory.*;
 
 @Component
 public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
@@ -19,22 +19,21 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
             throws IOException {
 
         return (httpResponse.getStatusCode().series() == CLIENT_ERROR
-                        || httpResponse.getStatusCode().series() == SERVER_ERROR);
+                || httpResponse.getStatusCode().series() == SERVER_ERROR);
     }
 
     @Override
-    public void handleError(ClientHttpResponse httpResponse)
-            throws IOException {
+    public void handleError(ClientHttpResponse httpResponse) throws IOException {
 
         if (httpResponse.getStatusCode()
                 .series() == HttpStatus.Series.SERVER_ERROR) {
-            serviceNotAvailableException("someService");
+            throw serviceNotAvailableException();
         } else if (httpResponse.getStatusCode()
                 .series() == HttpStatus.Series.CLIENT_ERROR) {
-            // handle CLIENT_ERROR
             if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
-
+                throw unknownException();
             }
+            throw clientException();
         }
     }
 }

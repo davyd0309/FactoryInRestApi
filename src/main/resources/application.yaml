@@ -6,4 +6,4 @@ foundry:
     name: localhost:8081
     endpoint:
       create: /create
-      all: /all
+      all: /alljackson-databind
