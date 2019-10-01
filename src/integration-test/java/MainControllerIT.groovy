@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate
 import pl.dawydiuk.FactoryInRestApi.FactoryInRestApiApplication
 import pl.dawydiuk.FactoryInRestApi.config.ComponentConfig
 import pl.dawydiuk.FactoryInRestApi.config.SecurityConfig
+import pl.dawydiuk.FactoryInRestApi.controller.CustomControllerExceptionHandler
 import pl.dawydiuk.FactoryInRestApi.controller.MainController
 import spock.lang.Specification
 
@@ -33,6 +34,9 @@ class MainControllerIT extends Specification {
     @Autowired
     private RestTemplate restTemplate
 
+    @Autowired
+    private CustomControllerExceptionHandler controllerExceptionHandler
+
     private MockRestServiceServer mockServer
 
     private WebTestClient webTestClient
@@ -40,7 +44,9 @@ class MainControllerIT extends Specification {
     private ObjectMapper mapper
 
     def setup() {
-        webTestClient = WebTestClient.bindToController(controller).build()
+        webTestClient = WebTestClient.bindToController(controller)
+                .controllerAdvice(controllerExceptionHandler)
+                .build()
         mockServer = MockRestServiceServer.createServer(restTemplate)
         mapper = new ObjectMapper()
     }
@@ -72,7 +78,7 @@ class MainControllerIT extends Specification {
 
     }
 
-    def "should response with server error"() {
+    def "should response with correct error"() {
         given:
         def productRQ = ProductRQ.builder().build()
 
@@ -91,5 +97,4 @@ class MainControllerIT extends Specification {
                 .expectBody()
 
     }
-
 }

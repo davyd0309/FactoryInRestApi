@@ -1,9 +1,17 @@
 pipeline {
-    agent { label 'linux'}
+    agent any
+    tools {
+        gradle "Gradle"
+    }
     stages {
-        stage('Hello from github'){
+        stage('Checkout') {
             steps {
-                echo "Hello Konrad !"
+                git 'https://github.com/davyd0309/FactoryInRestApi.git'
+            }
+        }
+        stage('Build'){
+            steps {
+                sh 'gradle build'
             }
         }
     }

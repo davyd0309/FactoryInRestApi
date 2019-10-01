@@ -27,13 +27,13 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
 
         if (httpResponse.getStatusCode()
                 .series() == HttpStatus.Series.SERVER_ERROR) {
-            throw serviceNotAvailableException();
+            throw serviceNotAvailableException(httpResponse.getStatusCode());
         } else if (httpResponse.getStatusCode()
                 .series() == HttpStatus.Series.CLIENT_ERROR) {
             if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
-                throw unknownException();
+                throw unknownException(httpResponse.getStatusCode());
             }
-            throw clientException();
+            throw clientException(httpResponse.getStatusCode());
         }
     }
 }
