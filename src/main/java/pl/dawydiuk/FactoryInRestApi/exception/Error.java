@@ -18,7 +18,8 @@ public class Error {
         return message;
     }
 
-    public static Error buildError(String code, String message){
-        return new Error(code,message);
+
+    public static Error buildError(String code, String message) {
+        return new Error(code, message);
     }
 }

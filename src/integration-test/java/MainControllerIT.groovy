@@ -93,8 +93,7 @@ class MainControllerIT extends Specification {
                 .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifSx7ImF1dGhvcml0eSI6IlJPTEVfVVNFUiJ9XSwibmFtZSI6InVzZXIiLCJpYXQiOjE1NjQ1OTg2ODYsImV4cCI6MTU2NDYwMDY4Nn0.8mPSkJ44MlTOlp4gvxDsZcCwVfffPDFgLEBDil3rDog")
                 .body(just(productRQ), ProductRQ.class)
                 .exchange()
-                .expectStatus().isCreated()
-                .expectBody()
-
+                .expectStatus().is5xxServerError()
+                .expectBody(String).isEqualTo("Error[code='1001',message='Service is not available']")
     }
 }
