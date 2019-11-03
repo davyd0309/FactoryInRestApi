@@ -1,29 +1,31 @@
 package pl.dawydiuk.FactoryInRestApi.service;
 
 import lombok.extern.slf4j.Slf4j;
-import models.ProductRQ;
+import models.ProductCreateRQ;
 import models.ProductRS;
 import org.springframework.http.ResponseEntity;
 
 import java.util.function.BiFunction;
+import java.util.function.Function;
+
 @Slf4j
 public class FoundryWrapperClientAdapter implements FoundryWrapperClient {
 
-    private final BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService;
-    private final BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryAllProductsRestService;
+    private final BiFunction<ProductCreateRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService;
+    private final Function<String, ResponseEntity<ProductRS>> foundryAllProductsRestService;
 
-    public FoundryWrapperClientAdapter(BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService, BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryAllProductsRestService) {
+    public FoundryWrapperClientAdapter(BiFunction<ProductCreateRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService, Function<String, ResponseEntity<ProductRS>> foundryAllProductsRestService) {
         this.foundryCreateProductRestService = foundryCreateProductRestService;
         this.foundryAllProductsRestService = foundryAllProductsRestService;
     }
 
     @Override
-    public ResponseEntity<ProductRS> invokeCreateProduct(ProductRQ productRQ, String token) {
-        return foundryCreateProductRestService.apply(productRQ, token);
+    public ResponseEntity<ProductRS> invokeCreateProduct(ProductCreateRQ productCreateRQ, String token) {
+        return foundryCreateProductRestService.apply(productCreateRQ, token);
     }
 
     @Override
-    public ResponseEntity<ProductRS> invokeAllProducts(ProductRQ productRQ, String token) {
-        return foundryAllProductsRestService.apply(productRQ, token);
+    public ResponseEntity<ProductRS> invokeAllProducts(String token) {
+        return foundryAllProductsRestService.apply(token);
     }
 }

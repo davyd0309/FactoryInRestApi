@@ -1,7 +1,7 @@
 package pl.dawydiuk.FactoryInRestApi.service.rest;
 
 import lombok.extern.slf4j.Slf4j;
-import models.ProductRQ;
+import models.ProductCreateRQ;
 import models.ProductRS;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -16,7 +16,7 @@ import java.util.function.BiFunction;
  * Created by Konrad on 12.03.2019.
  */
 @Slf4j
-public class FoundryCreateProductRestService implements BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> {
+public class FoundryCreateProductRestService implements BiFunction<ProductCreateRQ, String, ResponseEntity<ProductRS>> {
 
     @Value("${foundry.service.name}")
     private String serviceName;
@@ -31,8 +31,8 @@ public class FoundryCreateProductRestService implements BiFunction<ProductRQ, St
     }
 
     @Override
-    public ResponseEntity<ProductRS> apply(ProductRQ productRQ, String token){
-        HttpEntity<ProductRQ> entity = new HttpEntity<>(productRQ, buildHeaders(token));
+    public ResponseEntity<ProductRS> apply(ProductCreateRQ productCreateRQ, String token){
+        HttpEntity<ProductCreateRQ> entity = new HttpEntity<>(productCreateRQ, buildHeaders(token));
         return restTemplate.exchange(buildUrl(), HttpMethod.POST, entity, ProductRS.class);
     }
 

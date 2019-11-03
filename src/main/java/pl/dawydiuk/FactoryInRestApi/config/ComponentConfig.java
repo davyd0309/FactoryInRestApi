@@ -1,6 +1,6 @@
 package pl.dawydiuk.FactoryInRestApi.config;
 
-import models.ProductRQ;
+import models.ProductCreateRQ;
 import models.ProductRS;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +17,7 @@ import pl.dawydiuk.FactoryInRestApi.service.rest.FoundryCreateProductRestService
 
 import java.util.Arrays;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Created by Konrad on 06.04.2019.
@@ -41,18 +42,18 @@ public class ComponentConfig {
     }
 
     @Bean
-    public BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService(RestTemplate restTemplate) {
+    public BiFunction<ProductCreateRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService(RestTemplate restTemplate) {
         return new FoundryCreateProductRestService(restTemplate);
     }
 
     @Bean
-    public BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryAllProductsRestService(RestTemplate restTemplate) {
+    public Function<String, ResponseEntity<ProductRS>> foundryAllProductsRestService(RestTemplate restTemplate) {
         return new FoundryAllProductsRestService(restTemplate);
     }
 
     @Bean
-    public FoundryWrapperClient foundryWrapperClientAdapter(BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService,
-                                                            BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> foundryAllProductsRestService) {
+    public FoundryWrapperClient foundryWrapperClientAdapter(BiFunction<ProductCreateRQ, String, ResponseEntity<ProductRS>> foundryCreateProductRestService,
+                                                            Function<String, ResponseEntity<ProductRS>> foundryAllProductsRestService) {
         return new FoundryWrapperClientAdapter(foundryCreateProductRestService, foundryAllProductsRestService);
     }
 }

@@ -1,7 +1,7 @@
 package pl.dawydiuk.FactoryInRestApi.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import models.ProductRQ;
+import models.ProductCreateRQ;
 import models.ProductRS;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,15 +26,14 @@ public class MainController {
     @PostMapping(value = "/create")
     public ResponseEntity<ProductRS> createNewProducts(
             @RequestHeader("Authorization") String token,
-            @RequestBody ProductRQ productRQ) {
-        return foundryWrapperClientAdapter.invokeCreateProduct(productRQ, token);
+            @RequestBody ProductCreateRQ productCreateRQ) {
+        return foundryWrapperClientAdapter.invokeCreateProduct(productCreateRQ, token);
     }
 
     @PostMapping(value = "/all")
     public ResponseEntity<ProductRS> getAllProducts(
-            @RequestHeader("Authorization") String token,
-            @RequestBody ProductRQ productRQ) {
-        return foundryWrapperClientAdapter.invokeAllProducts(productRQ, token);
+            @RequestHeader("Authorization") String token) {
+        return foundryWrapperClientAdapter.invokeAllProducts(token);
     }
 
 }

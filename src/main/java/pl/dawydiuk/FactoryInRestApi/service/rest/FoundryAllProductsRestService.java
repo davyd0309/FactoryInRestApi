@@ -1,24 +1,21 @@
 package pl.dawydiuk.FactoryInRestApi.service.rest;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import models.ProductRQ;
 import models.ProductRS;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collections;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Created by Konrad on 12.03.2019.
  */
 @Slf4j
-public class FoundryAllProductsRestService implements BiFunction<ProductRQ, String, ResponseEntity<ProductRS>> {
+public class FoundryAllProductsRestService implements Function<String, ResponseEntity<ProductRS>> {
 
     @Value("${foundry.service.name}")
     private String serviceName;
@@ -33,9 +30,8 @@ public class FoundryAllProductsRestService implements BiFunction<ProductRQ, Stri
     }
 
     @Override
-    public ResponseEntity<ProductRS> apply(ProductRQ productRQ, String token) {
-        HttpEntity<ProductRQ> entity = new HttpEntity<>(productRQ, buildHeaders(token));
-        return restTemplate.exchange(buildUrl(), HttpMethod.POST, entity, ProductRS.class);
+    public ResponseEntity<ProductRS> apply(String token) {
+        return restTemplate.exchange(buildUrl(), HttpMethod.POST, new HttpEntity<>(buildHeaders(token)), ProductRS.class);
     }
 
     private HttpHeaders buildHeaders(String token) {

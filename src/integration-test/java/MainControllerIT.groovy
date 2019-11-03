@@ -1,5 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper
-import models.ProductRQ
+import models.AddProduct
 import models.ProductRS
 import models.enums.ProductType
 import org.springframework.beans.factory.annotation.Autowired
@@ -53,10 +53,11 @@ class MainControllerIT extends Specification {
 
     def "should response success and status 201 when create product"() {
         given:
+        AddProduct
         def productRQ = ProductRQ.builder()
                 .number(10)
                 .type(ProductType.WASHBASIN)
-                .build()
+                .build();
 
         mockServer.expect(ExpectedCount.once(), requestTo(new URI("http://localhost:8081/create")))
                 .andExpect(method(HttpMethod.POST))
