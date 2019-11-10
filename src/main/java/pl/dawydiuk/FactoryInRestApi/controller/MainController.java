@@ -36,4 +36,10 @@ public class MainController {
         return foundryWrapperClientAdapter.invokeAllProducts(token);
     }
 
+
+    @GetMapping
+    public String testEnd(){
+        return "SUCCES RESPONSE";
+    }
+
 }
