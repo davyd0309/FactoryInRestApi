@@ -8,9 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.dawydiuk.FactoryInRestApi.service.FoundryWrapperClient;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
-import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
-
 /**
  * Created by Konrad on 12.03.2019.
  */
